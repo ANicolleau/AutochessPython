@@ -1,9 +1,20 @@
 import mysql.connector
+import os
+import logging
 
-database = mysql.connector.connect(user='root', password='root',
-                                   host='127.0.0.1')
-mycursor = database.cursor()
 
-mycursor.execute("CREATE DATABASE mydatabase")
+class Database(object):
+    def __init__(self, user, password, host):
+        self.user = user
+        self.password = password
+        self.host = host
+        self.sql_init_path = '%s/sql_script/init.sql' % os.path.dirname(__file__)
 
-database.close()
+        init_database = mysql.connector.connect(user=self.user, password=self.password, host=self.host)
+        my_cursor = init_database.cursor()
+
+        f = open(self.sql_init_path, "r")
+        for line in f:
+            my_cursor.execute(line)
+        f.close()
+        init_database.close()
