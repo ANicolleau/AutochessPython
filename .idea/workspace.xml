@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e76169d0-18b1-42e3-ab3f-d8df3b56d255" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/AutochessPython.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/AutochessPython.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/db_manip.py" beforeDir="false" afterPath="$PROJECT_DIR$/database/db_manip.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game/game_init.py" beforeDir="false" afterPath="$PROJECT_DIR$/game/game_init.py" afterDir="false" />
-    </list>
+    <list default="true" id="e76169d0-18b1-42e3-ab3f-d8df3b56d255" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -120,7 +113,19 @@
       <option name="presentableId" value="Default" />
       <updated>1575978065989</updated>
     </task>
+    <task id="LOCAL-00001" summary="Add New game button and Game Menu.">
+      <created>1578916445151</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1578916445151</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Add New game button and Game Menu." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add New game button and Game Menu." />
   </component>
   <component name="WindowStateProjectService">
     <state x="223" y="68" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1578904722888">
@@ -135,6 +140,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="496" y="28" key="#game_init/0.0.1536.824@0.0.1536.824" timestamp="1578904827632" />
+    <state x="424" y="8" key="CommitChangelistDialog2" timestamp="1578916444112">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="424" y="8" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1578916444112" />
     <state x="548" y="188" key="FileChooserDialogImpl" timestamp="1578904697138">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -159,13 +168,17 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="277" y="56" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1578904899610" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1575992483065">
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1578916473495">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1575992483065" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1578916473495" />
     <state x="470" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1578903624332">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="470" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1578903624332" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1578916464320">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1578916464320" />
   </component>
 </project>
