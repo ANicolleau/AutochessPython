@@ -74,7 +74,6 @@ def game_intro():
                 pygame.quit()
                 quit()
 
-        print('IIIIIIIIIIIIIIIIIIIIIIIIINNNNNNNNNNNNNNNNNNNNTRRROOOOOOOOOO %s' % pygame.time.get_ticks())
 
         game_display.fill(white)
         large_text = pygame.font.Font('freesansbold.ttf', 115)
@@ -91,7 +90,42 @@ def game_menu():
     pygame.display.set_caption('AUTO_CHESS')
     clock = pygame.time.Clock()
 
-    button_play = pygame.Rect(150, 400, 100, 50)
+    pygame.display.flip()
+
+    while menu:
+        game_display.fill(white)
+
+        rect1 = pygame.draw.rect(game_display, red, ((display_width / 5), (display_height / 1.8), 100, 50))
+        new_game_text = font.render("New Game", False, (0, 0, 0))
+        new_game_rect = new_game_text.get_rect(center=rect1.center)
+        button = game_display.blit(new_game_text, new_game_rect)
+
+        large_text = pygame.font.Font('freesansbold.ttf', 115)
+        text_surf, text_rect = text_objects("AUTO_CHESS", large_text)
+        text_rect.center = ((display_width / 2), (display_height / 4))
+        game_display.blit(text_surf, text_rect)
+        pygame.display.update()
+        clock.tick(15)
+
+        for event in pygame.event.get():
+            print(event)
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+            elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                pos = pygame.mouse.get_pos()
+                print('Le click est appuyé')
+                if button.collidepoint(pos):
+                    menu = False
+                    print('Le click est dans le button')
+
+    in_game()
+
+
+def in_game():
+    menu = True
+    game_display = pygame.display.set_mode((display_width, display_height), RESIZABLE)
+    clock = pygame.time.Clock()
 
     pygame.display.flip()
 
@@ -104,15 +138,6 @@ def game_menu():
 
         game_display.fill(white)
 
-        rect1 = pygame.draw.rect(game_display, red, ((display_width / 5), (display_height / 1.8), 100, 50))
-        new_game_text = font.render("New Game", False, (0, 0, 0))
-        new_game_rect = new_game_text.get_rect(center=rect1.center)
-        game_display.blit(new_game_text, new_game_rect)
-
-        large_text = pygame.font.Font('freesansbold.ttf', 115)
-        text_surf, text_rect = text_objects("AUTO_CHESS", large_text)
-        text_rect.center = ((display_width / 2), (display_height / 4))
-        game_display.blit(text_surf, text_rect)
         pygame.display.update()
         clock.tick(15)
 
