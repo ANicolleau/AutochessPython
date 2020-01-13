@@ -8,3 +8,9 @@ Cependant, notre jeu ne sera pas multijoueur, le but du projet étant de faire u
 
 ### Lien important
 [Lien vers Trello](https://trello.com/b/wbWl3OI3/auto-chess)
+
+
+
+### Install
+pip install mysql-connector-python
+pip install mygame

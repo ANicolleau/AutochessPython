@@ -4,10 +4,10 @@ import logging
 
 
 class Database(object):
-    def __init__(self, user, password, host):
-        self.user = user
-        self.password = password
-        self.host = host
+    def __init__(self   ):
+        self.user = "root"
+        self.password = "root"
+        self.host = "127.0.0.1"
         self.sql_init_path = '%s/sql_script/init.sql' % os.path.dirname(__file__)
 
         init_database = mysql.connector.connect(user=self.user, password=self.password, host=self.host)
