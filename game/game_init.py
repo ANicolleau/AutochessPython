@@ -5,20 +5,17 @@ import time
 import os
 from pygame.locals import *
 from database.object import *
-# from database.db_manip import Database
+from database.db_manip import get_all_champions
+
 # from database.object.database import Database
 
-# db = Database()
 
 pygame.init()
 pygame.font.init()
 font = pygame.font.SysFont("Grobold", 20)
-#
-# fps = 60
 display_width = 900
 display_height = 500
 bg = [255, 255, 255]
-# rect = pygame.Rect(10, 20, 30, 30)
 
 white = (255, 255, 255)
 black = (0, 0, 0)
@@ -51,7 +48,7 @@ def game_intro():
         if pygame.time.get_ticks() > 2000:
             intro = False
         for event in pygame.event.get():
-            print(event)
+            # print(event)
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
@@ -81,7 +78,6 @@ def game_menu():
     pygame.display.flip()
 
     while menu:
-        print("MENU")
         game_display.fill(white)
 
         rect_new_game = pygame.draw.rect(game_display, red, ((display_width / 5), (display_height / 1.8), 100, 50))
@@ -90,7 +86,7 @@ def game_menu():
 
         button_start_new_game = create_button("New Game", rect_new_game, game_display)
         button_start_game = create_button("Continue", rect_start_game, game_display)
-        button_options = create_button("Options", rect_options, game_display)
+        button_options = create_button("Personnages", rect_options, game_display)
 
         large_text = pygame.font.Font('freesansbold.ttf', 115)
         text_surf, text_rect = text_objects("AUTO_CHESS", large_text, black)
@@ -100,13 +96,12 @@ def game_menu():
         clock.tick(15)
 
         for event in pygame.event.get():
-            print(event)
+            # print(event)
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 pos = pygame.mouse.get_pos()
-                print('Le click est appuyé')
                 if rect_new_game.collidepoint(pos):
                     choose_menu = NEW_GAME
                     menu = False
@@ -135,13 +130,12 @@ def in_game():
         pygame.display.flip()
 
         for event in pygame.event.get():
-            print(event)
+            # print(event)
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 pos = pygame.mouse.get_pos()
-                print('Le click est appuyé')
                 if rect_return.collidepoint(pos):
                     game = False
 
@@ -152,32 +146,58 @@ def in_game():
 
 def show_characters():
     game = True
-    while game:
-        game_display = pygame.display.set_mode((display_width, display_height), RESIZABLE)
-        clock = pygame.time.Clock()
-        rect_return = pygame.draw.rect(game_display, red, ((display_width / 1.2), (display_height / 1.2), 100, 50))
-        create_button("Retour", rect_return, game_display)
+    all_champions = get_all_champions()
 
-        large_text = pygame.font.Font('freesansbold.ttf', 80)
-        text_surf, text_rect = text_objects("Personnages", large_text, white)
-        text_rect.center = ((display_width / 2), (display_height / 4))
-        game_display.blit(text_surf, text_rect)
+    game_display = pygame.display.set_mode((display_width, display_height), RESIZABLE)
+
+    rect_champ_width = display_width
+    rect_champ_height = display_height
+    dict_champ_length = len(all_champions)
+    button_list = []
+    temp_rect_champ_width = rect_champ_width
+    temp_rect_champ_height = rect_champ_height
+    for champion in all_champions:
+        rect_champ = pygame.draw.rect(game_display, red,
+                                      (temp_rect_champ_width / 1.2, temp_rect_champ_height / 1.2, 100, 50))
+        button_list.append(rect_champ)
+        create_button(champion, rect_champ, game_display)
+        temp_rect_champ_width -= 150
+        if temp_rect_champ_width <= 100:
+            temp_rect_champ_width = rect_champ_width
+            temp_rect_champ_height -= 150
+        print(button_list)
+        # print(champion)
+        print(rect_champ_width)
+
+    clock = pygame.time.Clock()
+    rect_return = pygame.draw.rect(game_display, red, ((display_width / 1.2), (display_height / 1.2), 100, 50))
+    print(rect_return)
+    create_button("Retour", rect_return, game_display)
+
+    # large_text = pygame.font.Font('freesansbold.ttf', 80)
+    # text_surf, text_rect = text_objects("Personnages", large_text, white)
+    # text_rect.center = ((display_width / 2), (display_height / 4))
+
+    # game_display.blit(text_surf, text_rect)
+    pygame.display.update()
+    clock.tick(15)
+    while game:
 
         pygame.display.flip()
 
         for event in pygame.event.get():
-            print(event)
+            # print(event)
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 pos = pygame.mouse.get_pos()
-                print('Le click est appuyé')
                 if rect_return.collidepoint(pos):
                     game = False
+                for rect in button_list:
+                    if rect.collidepoint(pos):
+                        game = False
 
-        pygame.display.update()
-        clock.tick(15)
     game_menu()
 
 

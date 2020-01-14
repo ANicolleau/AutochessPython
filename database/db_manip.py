@@ -1,34 +1,21 @@
-import mysql.connector
-import os
-import logging
+from .object import *
 
 
-class Database(object):
-    def __init__(self):
-        self.user = "root"
-        self.password = "root"
-        self.host = "127.0.0.1"
-        self.sql_init_path = '%s/sql_script/init.sql' % os.path.dirname(__file__)
-        self.created = False
-
-        if not self.created:
-            self.created = self.create(self.created)
-
-
-    def create(self, created):
-        if not created:
-            init_database = mysql.connector.connect(user=self.user, password=self.password, host=self.host)
-            my_cursor = init_database.cursor()
-
-            f = open(self.sql_init_path, "r")
-            for line in f:
-                print(line)
-                my_cursor.execute(line)
-            f.close()
-            init_database.close()
-            created = True
-        return created
-
-    def selectAll(self, ):
-        open_database = mysql.connector.connect(user=self.user, password=self.password, host=self.host)
-        select_cursor = open_database.cursor()
+# Mettre ça dans le game_init pour essayer de voir comment récupérer tous les objets champions.
+def get_all_champions():
+    all_champions_object = get_all()
+    all_champion_dict = {}
+    print('############################################################################################')
+    for champion in all_champions_object:
+        all_champion_dict[champion.name] = {
+            'health': champion.health,
+            'price': champion.price,
+            'description': champion.description,
+            'rarity': champion.rarity,
+            'level': champion.level
+        }
+    print(all_champion_dict)
+        # for id, name, health, price, description, rarity, level in champion:
+        #     print(id, name, health, price, description, rarity, level)
+    print('############################################################################################')
+    return all_champion_dict
