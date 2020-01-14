@@ -1,4 +1,4 @@
-from .champions import Champion
+from .champions import Champion, get_all
 from .board import Board
 from .heroes import Heroes
 from .user import User
