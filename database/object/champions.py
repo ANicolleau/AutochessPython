@@ -1,10 +1,14 @@
 from sqlalchemy import Integer, Column, String, create_engine
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
 
 engine = create_engine('mysql://root:root@localhost:3306', echo=True)
-engine.execute("CREATE DATABASE autochess")
+engine.execute("CREATE DATABASE IF NOT EXISTS autochess")
 engine.execute("USE autochess")
 Base = declarative_base()
+Session = sessionmaker()
+Session.configure(bind=engine)
+session = Session()
 
 
 class Champion(Base):
@@ -23,5 +27,7 @@ class Champion(Base):
 
 
 Base.metadata.create_all(engine)
-
+champ1 = Champion(id=1, name="chaa", health=1, price=1, description="blbl", rarity=1, level=1)
+session.add(champ1)
+session.commit()
 # View et base de données

@@ -1,0 +1,134 @@
+{
+  "champions" : [
+    {
+      "id" : 1,
+      "name": "salameche",
+      "health" : 50,
+      "attack" : 5,
+      "price": 1,
+      "description": "Pokemon de type feu",
+      "rarity": 1,
+      "level": 1
+    },
+    {
+      "id" : 2,
+      "name": "carapuce",
+      "health" :50,
+      "attack" : 5,
+      "price": 1,
+      "description":"Pokemon de type eau",
+      "rarity":1,
+      "level": 1
+    },
+    {
+      "id" :2 ,
+      "name":"hericendre" ,
+      "health" :50,
+      "attack" :5 ,
+      "price":1 ,
+      "description":"Pokemon de type feu",
+      "rarity":1,
+      "level":1
+    },
+    {
+      "id" :3 ,
+      "name":"carapuce" ,
+      "health" :50,
+      "attack" : ,
+      "price":5 ,
+      "description":1,
+      "rarity":"Pokemon de type eau",
+      "level":1
+    },
+    {
+      "id" :4 ,
+      "name":"kaiminus" ,
+      "health" :50,
+      "attack" :5 ,
+      "price":1 ,
+      "description":"Pokemon de type eau",
+      "rarity":1,
+      "level":1
+    },
+    {
+      "id" : 5,
+      "name": "bulbizar",
+      "health" :50,
+      "attack" :5 ,
+      "price": 1,
+      "description":"Pokemon de type plante",
+      "rarity":1,
+      "level":1
+    },
+    {
+      "id" :6 ,
+      "name":"germinion" ,
+      "health" :50,
+      "attack" :5 ,
+      "price":1 ,
+      "description": "Pokemon de type plante",
+      "rarity":1,
+      "level":1
+    },
+    {
+      "id" : 7,
+      "name": "mini_draco",
+      "health" :50,
+      "attack" : 5,
+      "price": 1,
+      "description":"Pokemon de type dragon",
+      "rarity":1,
+      "level":1
+    },
+    {
+      "id" : 8,
+      "name": "chetiflor",
+      "health" :50,
+      "attack" : 5,
+      "price": 1,
+      "description": "Pokemon de type plante",
+      "rarity":1,
+      "level":1
+    },
+    {
+      "id" :9 ,
+      "name":"mystherbe" ,
+      "health" :50,
+      "attack" :5 ,
+      "price":1,
+      "description":"Pokemon de type plante",
+      "rarity":1,
+      "level":1
+    },
+    {
+      "id" : 10,
+      "name": "wattwatt",
+      "health" : 50,
+      "attack" : 5,
+      "price": 1,
+      "description":"Pokemon de type electrique",
+      "rarity":1,
+      "level":1
+    },
+    {
+      "id" : 11,
+      "name": "miaous",
+      "health" : 50,
+      "attack" : 5,
+      "price": 1,
+      "description": "Pokemon de type normal",
+      "rarity":1,
+      "level":1
+    },
+    {
+      "id" : 12,
+      "name": "evoli",
+      "health" : 50,
+      "attack" : 5,
+      "price": 1,
+      "description": "Pokemon de type normal",
+      "rarity":1,
+      "level":1
+    }
+  ]
+}
