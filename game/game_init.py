@@ -4,9 +4,11 @@ import sys
 import time
 import os
 from pygame.locals import *
-from database.db_manip import Database
+from database.object import *
+# from database.db_manip import Database
+# from database.object.database import Database
 
-db = Database()
+# db = Database()
 
 pygame.init()
 pygame.font.init()
@@ -119,7 +121,7 @@ def game_menu():
     elif choose_menu == CONTINUE:
         in_game()  # Devrait reprendre la partie en cours.
     elif choose_menu == OPTIONS:
-        options()
+        show_characters()
 
 
 def in_game():
@@ -148,7 +150,7 @@ def in_game():
     game_menu()
 
 
-def options():
+def show_characters():
     game = True
     while game:
         game_display = pygame.display.set_mode((display_width, display_height), RESIZABLE)
@@ -157,7 +159,7 @@ def options():
         create_button("Retour", rect_return, game_display)
 
         large_text = pygame.font.Font('freesansbold.ttf', 80)
-        text_surf, text_rect = text_objects("OPTIONS", large_text, white)
+        text_surf, text_rect = text_objects("Personnages", large_text, white)
         text_rect.center = ((display_width / 2), (display_height / 4))
         game_display.blit(text_surf, text_rect)
 
