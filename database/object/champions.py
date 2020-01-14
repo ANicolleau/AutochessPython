@@ -41,8 +41,6 @@ def get_all():
 
 
 Base.metadata.create_all(engine)
-# query = session.query(Champion)
-# print(query.all())
 for champion in champions_data:
     champ = Champion(id=champion['id'], name=champion['name'], health=champion['health'], price=champion['price'],
                      description=champion['description'], rarity=champion['rarity'], level=champion['level'])

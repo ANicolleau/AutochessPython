@@ -96,7 +96,6 @@ def game_menu():
         clock.tick(15)
 
         for event in pygame.event.get():
-            # print(event)
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
@@ -116,7 +115,7 @@ def game_menu():
     elif choose_menu == CONTINUE:
         in_game()  # Devrait reprendre la partie en cours.
     elif choose_menu == OPTIONS:
-        show_characters()
+        show_all_characters()
 
 
 def in_game():
@@ -130,7 +129,6 @@ def in_game():
         pygame.display.flip()
 
         for event in pygame.event.get():
-            # print(event)
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
@@ -144,29 +142,28 @@ def in_game():
     game_menu()
 
 
-def show_characters():
+def show_all_characters():
     game = True
+    selected_champion = ""
     all_champions = get_all_champions()
 
     game_display = pygame.display.set_mode((display_width, display_height), RESIZABLE)
 
     rect_champ_width = display_width
     rect_champ_height = display_height
-    dict_champ_length = len(all_champions)
-    button_list = []
+    button_list = {}
     temp_rect_champ_width = rect_champ_width
     temp_rect_champ_height = rect_champ_height
     for champion in all_champions:
         rect_champ = pygame.draw.rect(game_display, red,
-                                      (temp_rect_champ_width / 1.2, temp_rect_champ_height / 1.2, 100, 50))
-        button_list.append(rect_champ)
+                                      (temp_rect_champ_width / 1.2, temp_rect_champ_height / 1.8, 100, 50))
+        button_list[champion] = rect_champ
         create_button(champion, rect_champ, game_display)
         temp_rect_champ_width -= 150
         if temp_rect_champ_width <= 100:
             temp_rect_champ_width = rect_champ_width
             temp_rect_champ_height -= 150
         print(button_list)
-        # print(champion)
         print(rect_champ_width)
 
     clock = pygame.time.Clock()
@@ -174,11 +171,6 @@ def show_characters():
     print(rect_return)
     create_button("Retour", rect_return, game_display)
 
-    # large_text = pygame.font.Font('freesansbold.ttf', 80)
-    # text_surf, text_rect = text_objects("Personnages", large_text, white)
-    # text_rect.center = ((display_width / 2), (display_height / 4))
-
-    # game_display.blit(text_surf, text_rect)
     pygame.display.update()
     clock.tick(15)
     while game:
@@ -186,7 +178,6 @@ def show_characters():
         pygame.display.flip()
 
         for event in pygame.event.get():
-            # print(event)
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
@@ -194,11 +185,45 @@ def show_characters():
                 pos = pygame.mouse.get_pos()
                 if rect_return.collidepoint(pos):
                     game = False
-                for rect in button_list:
+                for name, rect in button_list.items():
                     if rect.collidepoint(pos):
+                        selected_champion = name
                         game = False
-
+    if selected_champion:
+        for champion_name, stats in all_champions.items():
+            if selected_champion == champion_name:
+                print('%s : %s' % (champion_name, stats))
+                show_stats_champions(selected_champion, stats)
     game_menu()
+
+
+def show_stats_champions(champion_name, stats):
+    game = True
+    game_display = pygame.display.set_mode((display_width, display_height), RESIZABLE)
+    clock = pygame.time.Clock()
+    rect_return = pygame.draw.rect(game_display, red, ((display_width / 1.2), (display_height / 1.2), 100, 50))
+    create_button("Retour", rect_return, game_display)
+    rect_return = pygame.draw.rect(game_display, red, ((display_width / 10), (display_height / 6), 400, 400))
+    large_text = pygame.font.Font('freesansbold.ttf', 50)
+    text_surf, text_rect = text_objects(champion_name, large_text, red)
+    text_rect.center = ((display_width / 2), (display_height / 10))
+    game_display.blit(text_surf, text_rect)
+
+    pygame.display.flip()
+
+    while game:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+            elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                pos = pygame.mouse.get_pos()
+                if rect_return.collidepoint(pos):
+                    game = False
+
+        pygame.display.update()
+        clock.tick(15)
+    show_all_characters()
 
 
 game_intro()
