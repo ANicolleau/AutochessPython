@@ -1,10 +1,6 @@
-import pygame
-import pygame.font
-import sys
-import time
-import os
+import pygame, pygame.font, sys, time, os
 from pygame.locals import *
-from database.object import *
+# from database.object import *
 # from database.db_manip import Database
 # from database.object.database import Database
 
@@ -12,7 +8,7 @@ from database.object import *
 
 pygame.init()
 pygame.font.init()
-font = pygame.font.SysFont("Grobold", 20)
+font = pygame.font.SysFont(None, 20)
 #
 # fps = 60
 display_width = 900
@@ -26,10 +22,13 @@ red = (255, 0, 0)
 yellow = (200, 200, 0)
 green = (34, 177, 76)
 
-NEW_GAME = "new_game"
+NEW_GAME = "new game"
 CONTINUE = "continue"
 OPTIONS = "options"
 
+def terminate():
+    pygame.quit()
+    sys.exit()
 
 def text_objects(text, style, object_color):
     text_surface = style.render(text, True, object_color)
@@ -40,7 +39,7 @@ def game_intro():
     intro = True
 
     game_display = pygame.display.set_mode((display_width, display_height), RESIZABLE)
-    pygame.display.set_caption('AUTO_CHESS')
+    pygame.display.set_caption('Python Auto Battler')
     clock = pygame.time.Clock()
 
     button_play = pygame.Rect(150, 400, 100, 50)
@@ -53,16 +52,15 @@ def game_intro():
         for event in pygame.event.get():
             print(event)
             if event.type == pygame.QUIT:
-                pygame.quit()
-                quit()
+                terminate()
 
         game_display.fill(white)
-        large_text = pygame.font.Font('freesansbold.ttf', 115)
-        text_surf, text_rect = text_objects("AUTO_CHESS", large_text, black)
+        large_text = pygame.font.Font('freesansbold.ttf', 40)
+        text_surf, text_rect = text_objects("Python Auto Battler", large_text, black)
         text_rect.center = ((display_width / 2), (display_height / 2))
         game_display.blit(text_surf, text_rect)
         pygame.display.update()
-        clock.tick(15)
+        clock.tick(40)
 
 
 def create_button(text, rectangle, screen):
@@ -75,7 +73,7 @@ def game_menu():
     choose_menu = ""
     menu = True
     game_display = pygame.display.set_mode((display_width, display_height), RESIZABLE)
-    pygame.display.set_caption('AUTO_CHESS')
+    pygame.display.set_caption('Python Auto Battler')
     clock = pygame.time.Clock()
 
     pygame.display.flip()
@@ -92,8 +90,8 @@ def game_menu():
         button_start_game = create_button("Continue", rect_start_game, game_display)
         button_options = create_button("Options", rect_options, game_display)
 
-        large_text = pygame.font.Font('freesansbold.ttf', 115)
-        text_surf, text_rect = text_objects("AUTO_CHESS", large_text, black)
+        large_text = pygame.font.Font('freesansbold.ttf', 40)
+        text_surf, text_rect = text_objects("Python Auto Battler", large_text, black)
         text_rect.center = ((display_width / 2), (display_height / 4))
         game_display.blit(text_surf, text_rect)
         pygame.display.update()
@@ -102,11 +100,9 @@ def game_menu():
         for event in pygame.event.get():
             print(event)
             if event.type == pygame.QUIT:
-                pygame.quit()
-                quit()
+                terminate()
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 pos = pygame.mouse.get_pos()
-                print('Le click est appuyé')
                 if rect_new_game.collidepoint(pos):
                     choose_menu = NEW_GAME
                     menu = False
@@ -137,8 +133,7 @@ def in_game():
         for event in pygame.event.get():
             print(event)
             if event.type == pygame.QUIT:
-                pygame.quit()
-                quit()
+                terminate()
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 pos = pygame.mouse.get_pos()
                 print('Le click est appuyé')
@@ -168,8 +163,7 @@ def show_characters():
         for event in pygame.event.get():
             print(event)
             if event.type == pygame.QUIT:
-                pygame.quit()
-                quit()
+                terminate()
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 pos = pygame.mouse.get_pos()
                 print('Le click est appuyé')
