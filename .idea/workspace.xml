@@ -2,7 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e76169d0-18b1-42e3-ab3f-d8df3b56d255" name="Default Changelist" comment="Add New game button and Game Menu.">
+      <change afterPath="$PROJECT_DIR$/database/constants.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/models/db_init.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/db_manip.py" beforeDir="false" afterPath="$PROJECT_DIR$/database/db_manip.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/object/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/database/models/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/object/board.py" beforeDir="false" afterPath="$PROJECT_DIR$/database/models/board.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/object/champions.py" beforeDir="false" afterPath="$PROJECT_DIR$/database/models/champions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/object/database.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/object/heroes.py" beforeDir="false" afterPath="$PROJECT_DIR$/database/models/heroes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/object/type.py" beforeDir="false" afterPath="$PROJECT_DIR$/database/models/type.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/object/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/database/models/user.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/sql_script/champions.json" beforeDir="false" afterPath="$PROJECT_DIR$/database/sql_script/champions.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game/game_init.py" beforeDir="false" afterPath="$PROJECT_DIR$/game/game_init.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -176,22 +187,22 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="548" y="188" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1579077124815" />
-    <state width="1515" height="136" key="GridCell.Tab.0.bottom" timestamp="1580679179310">
+    <state width="1515" height="136" key="GridCell.Tab.0.bottom" timestamp="1580831262807">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="136" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1580679179310" />
-    <state width="1515" height="136" key="GridCell.Tab.0.center" timestamp="1580679179309">
+    <state width="1515" height="136" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1580831262807" />
+    <state width="1515" height="136" key="GridCell.Tab.0.center" timestamp="1580831262806">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="136" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1580679179309" />
-    <state width="1515" height="136" key="GridCell.Tab.0.left" timestamp="1580679179309">
+    <state width="1515" height="136" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1580831262806" />
+    <state width="1515" height="136" key="GridCell.Tab.0.left" timestamp="1580831262806">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="136" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1580679179309" />
-    <state width="1515" height="136" key="GridCell.Tab.0.right" timestamp="1580679179310">
+    <state width="1515" height="136" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1580831262806" />
+    <state width="1515" height="136" key="GridCell.Tab.0.right" timestamp="1580831262806">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="136" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1580679179310" />
+    <state width="1515" height="136" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1580831262806" />
     <state x="277" y="56" key="SettingsEditor" timestamp="1578904899610">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -212,10 +223,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="550" y="126" key="git4idea.branch.GitSmartOperationDialog/0.0.1536.824@0.0.1536.824" timestamp="1579018505343" />
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1578916464320">
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1580829232093">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1578916464320" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1580829232093" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

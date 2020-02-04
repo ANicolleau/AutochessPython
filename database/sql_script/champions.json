@@ -62,15 +62,15 @@
     },
     {
       "id": 6,
-      "name": "germinion",
+      "name": "germignon",
       "health": 50,
       "attack": 5,
       "price": 1,
       "description": "Pokemon de type plante",
       "rarity": 1,
       "level": 1,
-      "img": "\\img\\germinion.png",
-      "img_dos": "\\img\\germinion_dos.png"
+      "img": "\\img\\germignon.png",
+      "img_dos": "\\img\\germignon_dos.png"
     },
     {
       "id": 7,

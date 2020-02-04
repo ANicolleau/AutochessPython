@@ -1,4 +1,5 @@
-from .champions import Champion, get_all
+from .db_init import *
+from .champions import Champion
 from .board import Board
 from .heroes import Heroes
 from .user import User

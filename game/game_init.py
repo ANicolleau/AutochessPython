@@ -1,14 +1,10 @@
-import pygame
-import pygame.font
-import sys
-import time
+from database.db_manip import *
 import os
 from pygame.locals import *
-from database.object import *
-from database.db_manip import get_all_champions
+import pygame
+import pygame.font
 
 # from database.object.database import Database
-
 path = os.path.dirname(os.path.dirname(__file__))
 pygame.init()
 pygame.font.init()
@@ -95,6 +91,7 @@ def game_intro():
         for event in pygame.event.get():
             # print(event)
             if event.type == pygame.QUIT:
+                drop_database()
                 pygame.quit()
                 quit()
 
@@ -144,6 +141,7 @@ def game_menu():
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                drop_database()
                 pygame.quit()
                 quit()
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
@@ -167,6 +165,8 @@ def game_menu():
 
 def in_game():
     game = True
+    init_party()
+
     while game:
         game_display = pygame.display.set_mode((display_width, display_height), RESIZABLE)
         clock = pygame.time.Clock()
@@ -174,14 +174,16 @@ def in_game():
         create_button("Retour", rect_return, game_display)
 
         pygame.display.flip()
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                drop_board()
+                drop_database()
                 pygame.quit()
                 quit()
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 pos = pygame.mouse.get_pos()
                 if rect_return.collidepoint(pos):
+                    drop_board()
                     game = False
 
         pygame.display.update()
@@ -242,6 +244,7 @@ def show_all_characters():
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                drop_database()
                 pygame.quit()
                 quit()
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
@@ -274,7 +277,7 @@ def show_stats_champions(champion_name, stats):
     temp_rect_champ_width = rect_stats_key_width
     temp_rect_champ_height = rect_stats_key_height
     for stat in champ_stats:
-        print('stat : %s'%stat)
+        print('stat : %s' % stat)
         stat_name = stat.split(':')[0].title() + ' :'
         stat_value = stat.split(':')[1].title()
         new_height = temp_rect_champ_height / 5
@@ -293,20 +296,10 @@ def show_stats_champions(champion_name, stats):
         print('new_width : %s' % new_width)
         print('new_height : %s' % new_height)
 
-        # temp_rect_champ_height -= 75
-        # if temp_rect_champ_height <= 100:
-        #     temp_rect_champ_height = rect_stats_key_height
-        #     temp_rect_champ_width -= 600
-
         temp_rect_champ_height += 300
-        # if temp_rect_champ_height >= 800:
-        #     temp_rect_champ_height = rect_stats_key_height
-        #     temp_rect_champ_width -= 600
 
     rect_return = pygame.draw.rect(game_display, red, ((display_width / 1.2), (display_height / 1.2), 100, 50))
     create_button("Retour", rect_return, game_display)
-    # rect_champion_stats = pygame.draw.rect(game_display, white1, ((display_width / 10), (display_height / 6), 400, 400))
-    # create_button("coucou \n je suis une su", rect_champion_stats, game_display)
     large_text = pygame.font.Font('freesansbold.ttf', 50)
     text_surf, text_rect = text_objects(champion_name.title(), large_text, red)
     text_rect.center = ((display_width / 2), (display_height / 10))
@@ -324,6 +317,7 @@ def show_stats_champions(champion_name, stats):
     while game:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                drop_database()
                 pygame.quit()
                 quit()
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
@@ -334,6 +328,10 @@ def show_stats_champions(champion_name, stats):
         pygame.display.update()
         clock.tick(15)
     show_all_characters()
+
+
+def init_party():
+    create_board()
 
 
 game_intro()
