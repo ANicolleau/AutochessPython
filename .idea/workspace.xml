@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e76169d0-18b1-42e3-ab3f-d8df3b56d255" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/AutochessPython.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/AutochessPython.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/db_manip.py" beforeDir="false" afterPath="$PROJECT_DIR$/database/db_manip.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/object/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/database/object/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/object/champions.py" beforeDir="false" afterPath="$PROJECT_DIR$/database/object/champions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/sql_script/champions.json" beforeDir="false" afterPath="$PROJECT_DIR$/database/sql_script/champions.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game/game_init.py" beforeDir="false" afterPath="$PROJECT_DIR$/game/game_init.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -129,7 +127,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1575978065989</updated>
-      <workItem from="1579011889555" duration="4201000" />
+      <workItem from="1579011889555" duration="6589000" />
     </task>
     <task id="LOCAL-00001" summary="Add New game button and Game Menu.">
       <created>1578916445151</created>
@@ -159,7 +157,14 @@
       <option name="project" value="LOCAL" />
       <updated>1578932613132</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Add New game button and Game Menu.">
+      <created>1579018541012</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1579018541013</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -186,10 +191,11 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="496" y="28" key="#game_init/0.0.1536.824@0.0.1536.824" timestamp="1578904827632" />
-    <state x="424" y="8" key="CommitChangelistDialog2" timestamp="1578932612199">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="579" y="37" width="879" height="811" key="CommitChangelistDialog2" timestamp="1579018540940">
+      <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="424" y="8" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1578932612199" />
+    <state x="579" y="37" width="879" height="811" key="CommitChangelistDialog2/67.27.1853.1053@67.27.1853.1053" timestamp="1579018540940" />
     <state x="548" y="188" key="FileChooserDialogImpl" timestamp="1578904697138">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -210,14 +216,16 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1515" height="195" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1579018151124" />
-    <state x="277" y="56" key="SettingsEditor" timestamp="1578904899610">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="401" y="99" key="SettingsEditor" timestamp="1579019022479">
+      <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="277" y="56" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1578904899610" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1578932614739">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="401" y="99" key="SettingsEditor/67.27.1853.1053@67.27.1853.1053" timestamp="1579019022479" />
+    <state x="503" y="212" width="800" height="528" key="Vcs.Push.Dialog.v2" timestamp="1579018562640">
+      <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1578932614739" />
+    <state x="503" y="212" width="800" height="528" key="Vcs.Push.Dialog.v2/67.27.1853.1053@67.27.1853.1053" timestamp="1579018562640" />
     <state x="470" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1578903624332">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -230,6 +238,14 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="761" y="472" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/67.27.1853.1053@67.27.1853.1053" timestamp="1579018314428" />
+    <state x="622" y="346" width="733" height="413" key="git4idea.merge.GitPullDialog" timestamp="1580827837935">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="622" y="346" width="733" height="413" key="git4idea.merge.GitPullDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1580827837935" />
+    <state x="703" y="386" key="git4idea.ui.GitUnstashDialog" timestamp="1579018997862">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="703" y="386" key="git4idea.ui.GitUnstashDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1579018997862" />
     <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1578916464320">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

@@ -1,7 +1,7 @@
 import pygame, pygame.font, sys, time, os
 from pygame.locals import *
-from database.object import *
-from database.db_manip import get_all_champions
+# from database.object import *
+# from database.db_manip import get_all_champions
 
 # from database.object.database import Database
 
