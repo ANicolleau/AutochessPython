@@ -12,10 +12,12 @@ def get_all_champions():
             'price': champion.price,
             'description': champion.description,
             'rarity': champion.rarity,
-            'level': champion.level
+            'level': champion.level,
+            'img': champion.img,
+            'img_dos': champion.img_dos
         }
     print(all_champion_dict)
-        # for id, name, health, price, description, rarity, level in champion:
-        #     print(id, name, health, price, description, rarity, level)
+    # for id, name, health, price, description, rarity, level in champion:
+    #     print(id, name, health, price, description, rarity, level)
     print('############################################################################################')
     return all_champion_dict
