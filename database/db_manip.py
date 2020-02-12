@@ -18,7 +18,8 @@ def get_all_champions():
             'rarity': champion.rarity,
             'level': champion.level,
             'img': champion.img,
-            'img_dos': champion.img_dos
+            'img_dos': champion.img_dos,
+            'number_on_game': champion.number_on_game
         }
     print(all_champion_dict)
     # for id, name, health, price, description, rarity, level in champion:

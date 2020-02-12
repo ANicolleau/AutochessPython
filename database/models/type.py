@@ -26,6 +26,7 @@ class Type(Base):
 
     @staticmethod
     def drop_table_type():
+        session.commit()
         Base.metadata.drop_all(engine)
         print("TABLES TYPE DELETED")
 

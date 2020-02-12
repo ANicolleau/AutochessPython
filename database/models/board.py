@@ -29,6 +29,7 @@ class Board(Base):
 
     @staticmethod
     def drop_table_board():
+        session.commit()
         Base.metadata.drop_all(engine)
         print("TABLES BOARD DELETED")
 

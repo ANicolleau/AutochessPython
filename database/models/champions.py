@@ -22,10 +22,12 @@ class Champion(Base):
     level = Column(Integer)
     img = Column(String(255))
     img_dos = Column(String(255))
+    number_on_game = Column(Integer)
 
     def __rep__(self):
-        return "<Champion(name='%s', health='%s', price='%s', description='%s', rarity='%s', level='%s', img='%s', img_dos='%s')>" % (
-            self.name, self.health, self.price, self.description, self.rarity, self.level, self.img, self.img_dos)
+        return "<Champion(name='%s', health='%s', price='%s', description='%s', rarity='%s', level='%s', img='%s', img_dos='%s', number_on_game='%s')>" % (
+            self.name, self.health, self.price, self.description, self.rarity, self.level, self.img, self.img_dos,
+            self.number_on_game)
 
     @staticmethod
     def get_all():
@@ -35,6 +37,7 @@ class Champion(Base):
 
     @staticmethod
     def drop_table_champion():
+        session.commit()
         Base.metadata.drop_all(engine)
         print("TABLES CHAMPION DELETED")
 
@@ -44,7 +47,7 @@ for champion in champions_data:
     print('champion : %s' % champion)
     champ = Champion(id=champion['id'], name=champion['name'], health=champion['health'], price=champion['price'],
                      description=champion['description'], rarity=champion['rarity'], level=champion['level'],
-                     img=champion['img'], img_dos=champion['img_dos'])
+                     img=champion['img'], img_dos=champion['img_dos'], number_on_game=champion['number_on_game'])
     session.add(champ)
 
 session.commit()

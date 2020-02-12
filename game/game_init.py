@@ -1,26 +1,23 @@
-from database.db_manip import *
 import os
-from pygame.locals import *
+import random
 import pygame
 import pygame.font
+from pygame.locals import *
 
-# from database.object.database import Database
+from database.db_manip import *
+from game.colors import Colors
+
+display_width = 1400
+display_height = 700
+
+bg = [255, 255, 255]
+
 path = os.path.dirname(os.path.dirname(__file__))
 pygame.init()
 pygame.font.init()
+game_display = pygame.display.set_mode((display_width, display_height), RESIZABLE)
+game_display.fill(Colors.BEIGE)
 font = pygame.font.SysFont("Grobold", 20)
-display_width = 900
-display_height = 500
-bg = [255, 255, 255]
-
-white1 = (244, 237, 222)
-white2 = (240, 239, 230)
-beige = (245, 245, 220)
-white = (255, 255, 255)
-black = (0, 0, 0)
-red = (255, 0, 0)
-yellow = (250, 237, 39)
-green = (34, 177, 76)
 
 NEW_GAME = "new_game"
 CONTINUE = "continue"
@@ -75,13 +72,12 @@ def text_objects(text, style, object_color):
 
 
 def game_intro():
+    game_display.fill(Colors.BEIGE)
     intro = True
-
-    game_display = pygame.display.set_mode((display_width, display_height), RESIZABLE)
     pygame.display.set_caption('AUTO_CHESS')
     clock = pygame.time.Clock()
 
-    button_play = pygame.Rect(150, 400, 100, 50)
+    pygame.Rect(150, 400, 100, 50)
 
     pygame.display.flip()
 
@@ -95,13 +91,10 @@ def game_intro():
                 pygame.quit()
                 quit()
 
-        game_display.fill(beige)
+        game_display.fill(Colors.BEIGE)
         large_text = pygame.font.Font('freesansbold.ttf', 115)
-        # text_surf, text_rect = text_objects("AUTO_CHESS", large_text, yellow)
-        # text_rect.center = ((display_width / 2), (display_height / 2))
-        # game_display.blit(text_surf, text_rect)
         game_display.blit(render('Pokéchess', large_text),
-                          ((display_width / 6), (display_height / 3)))
+                          ((display_width / 3.8), (display_height / 3)))
         pygame.display.update()
         clock.tick(15)
 
@@ -113,31 +106,31 @@ def create_button(text, rectangle, screen):
 
 
 def game_menu():
+    game_display.fill(Colors.BEIGE)
     choose_menu = ""
     menu = True
-    game_display = pygame.display.set_mode((display_width, display_height), RESIZABLE)
     pygame.display.set_caption('AUTO_CHESS')
     clock = pygame.time.Clock()
 
     pygame.display.flip()
 
+    rect_new_game = pygame.draw.rect(game_display, Colors.RED, ((display_width / 5), (display_height / 1.8), 100, 50))
+    rect_start_game = pygame.draw.rect(game_display, Colors.RED,
+                                       ((display_width / 2.5), (display_height / 1.8), 100, 50))
+    rect_character = pygame.draw.rect(game_display, Colors.RED,
+                                      ((display_width / 1.65), (display_height / 1.8), 100, 50))
+
+    create_button("New Game", rect_new_game, game_display)
+    create_button("Continue", rect_start_game, game_display)
+    create_button("Personnages", rect_character, game_display)
+
+    large_text = pygame.font.Font('freesansbold.ttf', 115)
+
+    game_display.blit(render('Pokéchess', large_text),
+                      ((display_width / 3.8), (display_height / 6)))
+    pygame.display.update()
+    clock.tick(15)
     while menu:
-        game_display.fill(beige)
-
-        rect_new_game = pygame.draw.rect(game_display, red, ((display_width / 5), (display_height / 1.8), 100, 50))
-        rect_start_game = pygame.draw.rect(game_display, red, ((display_width / 2.5), (display_height / 1.8), 100, 50))
-        rect_options = pygame.draw.rect(game_display, red, ((display_width / 1.65), (display_height / 1.8), 100, 50))
-
-        button_start_new_game = create_button("New Game", rect_new_game, game_display)
-        button_start_game = create_button("Continue", rect_start_game, game_display)
-        button_options = create_button("Personnages", rect_options, game_display)
-
-        large_text = pygame.font.Font('freesansbold.ttf', 115)
-
-        game_display.blit(render('Pokéchess', large_text),
-                          ((display_width / 6), (display_height / 6)))
-        pygame.display.update()
-        clock.tick(15)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -152,7 +145,7 @@ def game_menu():
                 elif rect_start_game.collidepoint(pos):
                     choose_menu = CONTINUE
                     menu = False
-                elif rect_options.collidepoint(pos):
+                elif rect_character.collidepoint(pos):
                     choose_menu = OPTIONS
                     menu = False
     if choose_menu == NEW_GAME:
@@ -163,15 +156,57 @@ def game_menu():
         show_all_characters()
 
 
+def add_champion_in_game(pokemons):
+    available_pokemons = []
+    print('PRINT POKEMONS')
+    print('######################################################')
+    print(pokemons)
+    print('######################################################')
+    for pokemon, stats in pokemons.items():
+        print(pokemon, stats.get('number_on_game', ''))
+        number_on_game = stats.get('number_on_game', '')
+        for i in range(number_on_game):
+            available_pokemons.append(pokemon)
+
+    print(available_pokemons)
+    return available_pokemons
+    # rect_champ = pygame.draw.rect(game_display, Colors.RED,
+    #                               (temp_rect_champ_width / 1.2, temp_rect_champ_height / 1.8, 100, 50))
+    # button_list[champion] = rect_champ
+    # create_button(champion, rect_champ, game_display)
+    # temp_rect_champ_width -= 150
+    # if temp_rect_champ_width <= 100:
+    #     temp_rect_champ_width = rect_champ_width
+    #     temp_rect_champ_height -= 150
+
+
+def remove_element_on_list(list_of_char, list_to_removed):
+    for pokemon in list_to_removed:
+        list_of_char.remove(pokemon)
+
+
 def in_game():
+    game_display.fill(Colors.BEIGE)
     game = True
     init_party()
+    all_champions = get_all_champions()
+    clock = pygame.time.Clock()
+    rect_return = pygame.draw.rect(game_display, Colors.RED, ((display_width / 1.2), (display_height / 12), 100, 50))
+    create_button("Retour", rect_return, game_display)
 
+    board_purchase = pygame.draw.rect(game_display, Colors.BLACK, (
+        (display_width / 11.5), (display_height / 1.6), (display_width / 1.2), display_height))
+
+    board_player = pygame.draw.rect(game_display, Colors.RED, (
+        (display_width / 11.5), (display_height / 1.2), (display_width / 1.2), display_height))
+    create_button("", board_purchase, game_display)
+    create_button("", board_player, game_display)
+
+    available_pokemon = add_champion_in_game(all_champions)
+    available_to_buy = random.sample(available_pokemon, 5)
+    remove_element_on_list(available_pokemon, available_to_buy)
+    print('available_pokemon : %s' % available_pokemon)
     while game:
-        game_display = pygame.display.set_mode((display_width, display_height), RESIZABLE)
-        clock = pygame.time.Clock()
-        rect_return = pygame.draw.rect(game_display, red, ((display_width / 1.2), (display_height / 1.2), 100, 50))
-        create_button("Retour", rect_return, game_display)
 
         pygame.display.flip()
         for event in pygame.event.get():
@@ -208,19 +243,21 @@ def create_stats_area(champion_stats):
 
 
 def show_all_characters():
+    game_display.fill(Colors.BEIGE)
     game = True
     selected_champion = ""
     all_champions = get_all_champions()
-    game_display = pygame.display.set_mode((display_width, display_height), RESIZABLE)
-    game_display.fill(beige)
+    large_text = pygame.font.Font('freesansbold.ttf', 80)
 
+    game_display.blit(render('Pokémon disponibles', large_text),
+                      ((display_width / 5), (display_height / 6)))
     rect_champ_width = display_width
     rect_champ_height = display_height
     button_list = {}
     temp_rect_champ_width = rect_champ_width
     temp_rect_champ_height = rect_champ_height
     for champion in all_champions:
-        rect_champ = pygame.draw.rect(game_display, red,
+        rect_champ = pygame.draw.rect(game_display, Colors.RED,
                                       (temp_rect_champ_width / 1.2, temp_rect_champ_height / 1.8, 100, 50))
         button_list[champion] = rect_champ
         create_button(champion, rect_champ, game_display)
@@ -228,20 +265,15 @@ def show_all_characters():
         if temp_rect_champ_width <= 100:
             temp_rect_champ_width = rect_champ_width
             temp_rect_champ_height -= 150
-        # print(button_list)
-        # print(rect_champ_width)
 
     clock = pygame.time.Clock()
-    rect_return = pygame.draw.rect(game_display, red, ((display_width / 1.2), (display_height / 1.2), 100, 50))
-    # print(rect_return)
+    rect_return = pygame.draw.rect(game_display, Colors.RED, ((display_width / 1.2), (display_height / 1.2), 100, 50))
     create_button("Retour", rect_return, game_display)
 
     pygame.display.update()
     clock.tick(15)
     while game:
-
         pygame.display.flip()
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 drop_database()
@@ -264,9 +296,8 @@ def show_all_characters():
 
 
 def show_stats_champions(champion_name, stats):
+    game_display.fill(Colors.BEIGE)
     game = True
-    game_display = pygame.display.set_mode((display_width, display_height), RESIZABLE)
-    game_display.fill(beige)
     clock = pygame.time.Clock()
 
     champ_stats = create_stats_area(stats)
@@ -285,10 +316,10 @@ def show_stats_champions(champion_name, stats):
 
         new_height2 = temp_rect_champ_height / 5
         new_width2 = temp_rect_champ_width / 11
-        rect_champ_property_name = pygame.draw.rect(game_display, red,
+        rect_champ_property_name = pygame.draw.rect(game_display, Colors.RED,
                                                     (new_width, new_height, 100, 50))
 
-        rect_champ_property_value = pygame.draw.rect(game_display, red,
+        rect_champ_property_value = pygame.draw.rect(game_display, Colors.RED,
                                                      (new_width2, new_height2, 100, 50))
 
         create_button(stat_value, rect_champ_property_name, game_display)
@@ -298,10 +329,10 @@ def show_stats_champions(champion_name, stats):
 
         temp_rect_champ_height += 300
 
-    rect_return = pygame.draw.rect(game_display, red, ((display_width / 1.2), (display_height / 1.2), 100, 50))
+    rect_return = pygame.draw.rect(game_display, Colors.RED, ((display_width / 1.2), (display_height / 1.2), 100, 50))
     create_button("Retour", rect_return, game_display)
     large_text = pygame.font.Font('freesansbold.ttf', 50)
-    text_surf, text_rect = text_objects(champion_name.title(), large_text, red)
+    text_surf, text_rect = text_objects(champion_name.title(), large_text, Colors.RED)
     text_rect.center = ((display_width / 2), (display_height / 10))
     game_display.blit(text_surf, text_rect)
 

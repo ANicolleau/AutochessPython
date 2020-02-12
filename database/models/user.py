@@ -22,6 +22,7 @@ class User(Base):
 
     @staticmethod
     def drop_table_user():
+        session.commit()
         Base.metadata.drop_all(engine)
         print("TABLES USER DELETED")
 

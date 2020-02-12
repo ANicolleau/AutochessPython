@@ -10,7 +10,8 @@
       "rarity": 1,
       "level": 1,
       "img": "\\img\\salameche.png",
-      "img_dos": "\\img\\salameche_dos.png"
+      "img_dos": "\\img\\salameche_dos.png",
+      "number_on_game" : 5
     },
     {
       "id": 2,
@@ -22,7 +23,8 @@
       "rarity": 1,
       "level": 1,
       "img": "\\img\\carapuce.png",
-      "img_dos": "\\img\\carapuce_dos.png"
+      "img_dos": "\\img\\carapuce_dos.png",
+      "number_on_game" : 5
     },
     {
       "id": 3,
@@ -34,7 +36,8 @@
       "rarity": 1,
       "level": 1,
       "img": "\\img\\hericendre.png",
-      "img_dos": "\\img\\hericendre_dos.png"
+      "img_dos": "\\img\\hericendre_dos.png",
+      "number_on_game" : 5
     },
     {
       "id": 4,
@@ -46,7 +49,8 @@
       "rarity": 1,
       "level": 1,
       "img": "\\img\\kaiminus.png",
-      "img_dos": "\\img\\kaiminus_dos.png"
+      "img_dos": "\\img\\kaiminus_dos.png",
+      "number_on_game" : 5
     },
     {
       "id": 5,
@@ -58,7 +62,8 @@
       "rarity": 1,
       "level": 1,
       "img": "\\img\\bulbizar.png",
-      "img_dos": "\\img\\bulbizar_dos.png"
+      "img_dos": "\\img\\bulbizar_dos.png",
+      "number_on_game" : 5
     },
     {
       "id": 6,
@@ -70,7 +75,8 @@
       "rarity": 1,
       "level": 1,
       "img": "\\img\\germignon.png",
-      "img_dos": "\\img\\germignon_dos.png"
+      "img_dos": "\\img\\germignon_dos.png",
+      "number_on_game" : 5
     },
     {
       "id": 7,
@@ -82,7 +88,8 @@
       "rarity": 1,
       "level": 1,
       "img": "\\img\\minidraco.png",
-      "img_dos": "\\img\\minidraco_dos.png"
+      "img_dos": "\\img\\minidraco_dos.png",
+      "number_on_game" : 5
     },
     {
       "id": 8,
@@ -94,7 +101,8 @@
       "rarity": 1,
       "level": 1,
       "img": "\\img\\chetiflor.png",
-      "img_dos": "\\img\\chetiflor_dos.png"
+      "img_dos": "\\img\\chetiflor_dos.png",
+      "number_on_game" : 5
     },
     {
       "id": 9,
@@ -106,7 +114,8 @@
       "rarity": 1,
       "level": 1,
       "img": "\\img\\mystherbe.png",
-      "img_dos": "\\img\\mystherbe_dos.png"
+      "img_dos": "\\img\\mystherbe_dos.png",
+      "number_on_game" : 5
     },
     {
       "id": 10,
@@ -118,7 +127,8 @@
       "rarity": 1,
       "level": 1,
       "img": "\\img\\wattouat.png",
-      "img_dos": "\\img\\wattouat_dos.png"
+      "img_dos": "\\img\\wattouat_dos.png",
+      "number_on_game" : 5
     },
     {
       "id": 11,
@@ -130,7 +140,8 @@
       "rarity": 1,
       "level": 1,
       "img": "\\img\\miaouss.png",
-      "img_dos": "\\img\\miaouss_dos.png"
+      "img_dos": "\\img\\miaouss_dos.png",
+      "number_on_game" : 5
     },
     {
       "id": 12,
@@ -142,7 +153,8 @@
       "rarity": 1,
       "level": 1,
       "img": "\\img\\evoli.png",
-      "img_dos": "\\img\\evoli_dos.png"
+      "img_dos": "\\img\\evoli_dos.png",
+      "number_on_game" : 5
     },
     {
       "id": 13,
@@ -154,7 +166,8 @@
       "rarity": 2,
       "level": 1,
       "img": "\\img\\pyroli.png",
-      "img_dos": "\\img\\pyroli_dos.png"
+      "img_dos": "\\img\\pyroli_dos.png",
+      "number_on_game" : 5
     },
     {
       "id": 14,
@@ -166,7 +179,8 @@
       "rarity": 2,
       "level": 1,
       "img": "\\img\\voltali.png",
-      "img_dos": "\\img\\voltali_dos.png"
+      "img_dos": "\\img\\voltali_dos.png",
+      "number_on_game" : 1
     },
     {
       "id": 15,
@@ -178,7 +192,8 @@
       "rarity": 2,
       "level": 1,
       "img": "\\img\\aquali.png",
-      "img_dos": "\\img\\aquali_dos.png"
+      "img_dos": "\\img\\aquali_dos.png",
+      "number_on_game" : 1
     },
     {
       "id": 16,
@@ -190,7 +205,8 @@
       "rarity": 2,
       "level": 1,
       "img": "\\img\\mentali.png",
-      "img_dos": "\\img\\mentali_dos.png"
+      "img_dos": "\\img\\mentali_dos.png",
+      "number_on_game" : 1
     },
     {
       "id": 17,
@@ -202,7 +218,8 @@
       "rarity": 2,
       "level": 1,
       "img": "\\img\\noctali.png",
-      "img_dos": "\\img\\noctali_dos.png"
+      "img_dos": "\\img\\noctali_dos.png",
+      "number_on_game" : 1
     }
   ]
 }

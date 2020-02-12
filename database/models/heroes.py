@@ -30,6 +30,7 @@ class Heroes(Base):
 
     @staticmethod
     def drop_table_heroes():
+        session.commit()
         Base.metadata.drop_all(engine)
         print("TABLES HEROES DELETED")
 
