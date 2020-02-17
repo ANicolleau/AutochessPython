@@ -61,8 +61,8 @@
       "description": "Pokemon de type plante",
       "rarity": 1,
       "level": 1,
-      "img": "\\img\\bulbizar.png",
-      "img_dos": "\\img\\bulbizar_dos.png",
+      "img": "\\img\\bulbizarre.png",
+      "img_dos": "\\img\\bulbizarre_dos.png",
       "number_on_game" : 5
     },
     {

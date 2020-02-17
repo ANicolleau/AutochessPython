@@ -8,3 +8,4 @@ class Colors:
     YELLOW = (250, 237, 39)
     GREEN = (34, 177, 76)
 
+
