@@ -15,7 +15,7 @@ class Type(Base):
     modified_stats = Column(String(255))
 
     def __rep__(self):
-        return "<Board(name='%s', number = '%s', bonus_percent='%s', modified_stats='%s')>" % (
+        return "<Type(name='%s', number = '%s', bonus_percent='%s', modified_stats='%s')>" % (
             self.name, self.number, self.bonus_percent, self.modified_stats)
 
     @staticmethod
@@ -25,7 +25,7 @@ class Type(Base):
         return query.all()
 
     @staticmethod
-    def drop_table_type():
+    def drop_table():
         session.commit()
         Base.metadata.drop_all(engine)
         print("TABLES TYPE DELETED")

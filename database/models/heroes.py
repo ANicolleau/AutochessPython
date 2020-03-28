@@ -1,8 +1,6 @@
-# table correspondante au personnage choisi au début
-# buf et actif différent
-# si pdv à 0 fin de partie
+from sqlalchemy import Integer, Column, String, Boolean, ForeignKey
+from sqlalchemy.orm import relationship
 
-from sqlalchemy import Integer, Column, String
 from ..constants import DB_CONNECTION_STRING
 from ..models import *
 
@@ -13,14 +11,18 @@ class Heroes(Base):
     __tablename__ = "heroes"
 
     id = Column(Integer, primary_key=True)
+    party_id = Column(Integer, ForeignKey('party.id'))
     name = Column(String(255))
     health = Column(Integer)
     money = Column(Integer)
     level = Column(Integer)
+    # champions = relationship('Champion')
+    ia = Column(Boolean)
+    child = relationship("Board", uselist=False, back_populates="parent")
 
     def __rep__(self):
-        return "<Board(name='%s', health='%s', money='%s', level='%s')>" % (
-            self.name, self.health, self.money, self.level)
+        return "<Heroes(name='%s', health='%s', money='%s', level='%s', ia='%s')>" % (
+            self.name, self.health, self.money, self.level, self.ia)
 
     @staticmethod
     def get_all():
@@ -29,7 +31,7 @@ class Heroes(Base):
         return query.all()
 
     @staticmethod
-    def drop_table_heroes():
+    def drop_table():
         session.commit()
         Base.metadata.drop_all(engine)
         print("TABLES HEROES DELETED")

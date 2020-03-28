@@ -343,7 +343,9 @@ def show_stats_champions(champion_name, stats):
 
 
 def init_party():
+    create_champion_board_collection()
     create_board()
+    create_party()
 
 
 game_intro()

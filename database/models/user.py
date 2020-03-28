@@ -11,7 +11,7 @@ class User(Base):
     ia = Column(Boolean)
 
     def __rep__(self):
-        return "<Board(ia='%s')>" % (
+        return "<User(ia='%s')>" % (
             self.ia)
 
     @staticmethod
@@ -21,7 +21,7 @@ class User(Base):
         return query.all()
 
     @staticmethod
-    def drop_table_user():
+    def drop_table():
         session.commit()
         Base.metadata.drop_all(engine)
         print("TABLES USER DELETED")

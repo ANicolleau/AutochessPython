@@ -1,6 +1,6 @@
 import json
 
-from sqlalchemy import Integer, Column, String
+from sqlalchemy import Integer, Column, String, ForeignKey
 from ..constants import DB_CONNECTION_STRING, JSON_CHAMPIONS_PATH
 from . import *
 
@@ -14,6 +14,7 @@ champions_data = json_data.get('champions', '')
 class Champion(Base):
     __tablename__ = 'champions'
     id = Column(Integer, primary_key=True, autoincrement=1)
+    board_id = Column(Integer, ForeignKey('board.id'))
     name = Column(String(255))
     health = Column(Integer)
     price = Column(Integer)
@@ -36,7 +37,7 @@ class Champion(Base):
         return query.all()
 
     @staticmethod
-    def drop_table_champion():
+    def drop_table():
         session.commit()
         Base.metadata.drop_all(engine)
         print("TABLES CHAMPION DELETED")
