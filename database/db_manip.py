@@ -39,6 +39,7 @@ def create_champion_board_collection():
     ia_shop = random.sample(all_champions, 5)
     print('player_shop : %s' % player_shop)
     print('ia_shop : %s' % ia_shop)
+    return player_shop, ia_shop
 
 
 def create_board():
@@ -48,7 +49,7 @@ def create_board():
         if i == 2:
             name = "IA"
             spot = 1
-        game_board = Board(id=i, name=name, spot=spot)
+        game_board = Board(id=i, name=name, spot=spot, champions=[])
         session.add(game_board)
     session.commit()
     get_all_boards()
@@ -93,10 +94,12 @@ def create_heroes():
     for i in range(1, 3):
         name = "player"
         is_ia = False
+        child = Board.get_all()[0]
         if i == 2:
             name = "IA"
             is_ia = True
-        hero = Heroes(id=i, name=name, health=15, money=0, level=1, ia=is_ia)
+            child = Board.get_all()[1]
+        hero = Heroes(id=i, name=name, health=15, money=0, level=1, ia=is_ia, child=child)
         session.add(hero)
     session.commit()
     print("HEROES CREATED")
@@ -130,6 +133,7 @@ def create_party():
     create_heroes()
     # in_game_heroes = get_heroes()
     db_party = Party(id=1, players=get_db_heroes(), player_turn='', state=PartyState.IN_GAME)
+    print('db_party.players : %s'%db_party.players)
     session.add(db_party)
     session.commit()
     print("PARTY CREATED")

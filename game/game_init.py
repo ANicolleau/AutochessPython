@@ -2,11 +2,13 @@ import os
 import random
 import pygame
 import pygame.font
+
 from pygame.locals import *
 from database.db_manip import *
 from game.colors import Colors
 from game.utils import Icons, Height, Width, BoardPos
 from game.game_manip import *
+from game.objects.Game import Game
 
 bg = [255, 255, 255]
 path = os.path.dirname(os.path.dirname(__file__))
@@ -152,7 +154,7 @@ def in_game():
     possible_pos_x = BoardPos.possible_pos_x
     list_pos_rect = []
     game_display.fill(Colors.BEIGE)
-    game = True
+    game_continue = True
     init_party()
     all_champions = get_all_champions()
     clock = pygame.time.Clock()
@@ -160,14 +162,17 @@ def in_game():
     rect_return = pygame.draw.rect(game_display, Colors.RED,
                                    ((Width.display_width / 1.2), (Height.display_height / 12), 100, 50))
     create_button("Retour", rect_return, game_display)
-    available_to_buy, available_pokemon = fill_shop(all_champions)
+
+    game = Game()
+
+    fill_shop(game)
     champ_pos_x = Width.board_purchase_width + 27
     draw_player_shop_board()
     refresh_button = draw_refresh_button(15, 583, 100, Height.display_height)
-    button_list = create_store_champ_view(available_to_buy, champ_pos_x, Height.board_purchase_height)
+    button_list = create_store_champ_view(game.player_shop, champ_pos_x, Height.board_purchase_height)
     change_page_back()
     group_rect(button_list, list_pos_rect)
-    while game:
+    while game_continue:
         pygame.display.flip()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -179,30 +184,44 @@ def in_game():
                 pos = pygame.mouse.get_pos()
                 if rect_return.collidepoint(pos):
                     drop_board()
-                    game = False
+                    game_continue = False
                 if refresh_button.collidepoint(pos):
-                    button_list, available_to_buy = refresh_shop(button_list, available_pokemon, champ_pos_x,
-                                                                 Height.board_purchase_height)
-                for name, list_of_rect in button_list.items():
+                    champ_pos_x = Width.board_purchase_width + 27
+                    button_list = refresh_shop(button_list, game, champ_pos_x,
+                                               Height.board_purchase_height)
+                for champion_id, list_of_rect in button_list.items():
                     for rect in list_of_rect:
                         if rect.collidepoint(pos):
-                            print('list_pos_rect : %s' % list_pos_rect)
-                            remove_element_on_list(available_pokemon, name)
-                            list_of_sprites, champ_pos_x = create_player_champ_view(available_to_buy, champ_pos_x,
+                            if len(game.player_board.champions) >= 5:
+                                continue
+                            print('len(game.player_board.champions) : %s' % len(game.player_board.champions))
+                            game.add_champ_to_board(game.player_board, game.player_shop, champion_id)
+                            list_of_sprites, champ_pos_x = create_player_board_view(game.player_board.champions,
+                                                                                    champ_pos_x,
                                                                                     Height.board_player_height)
-                            champion_sprite_dos = list_of_sprites.get(name, '')
+                            champion_sprite_dos = list_of_sprites.get(champion_id, '')
                             game_display.blit(background, (rect.x, rect.y), rect)
-                            if list_pos_rect:
-                                game_display.blit(champion_sprite_dos, (list_pos_rect[0].x, 450))
-                                list_pos_rect.pop(0)
+                            counter = 0
+                            if list_pos_rect and list_of_sprites:
+                                for sprite_id, sprite in list_of_sprites.items():
+                                    print('len(game.player_board.champions) : %s' % len(game.player_board.champions))
+                                    if counter <= len(game.player_board.champions):
+                                        print('HERE')
+                                        # pos_in_list = len(game.player_board.champions) - 1
+                                        # print('pos_in_list : %s'%pos_in_list)
+                                        # game_display.blit(sprite, (list_pos_rect[pos_in_list].x, 450))
+                                        game_display.blit(sprite, (list_pos_rect[counter].x, 450))
+                                        counter += 1
+
+                                    # list_pos_rect.pop(pos_in_list)
+                                # print('list_pos_rect[0].x : %s' % list_pos_rect[0].x)
+                                # print('champion_sprite_dos : %s' % champion_sprite_dos)
+                                # game_display.blit(champion_sprite_dos, (list_pos_rect[0].x, 450))
+                                # list_pos_rect.pop(0)
 
         pygame.display.update()
         clock.tick(15)
     game_menu()
-
-
-def refill_shop(available_pokemon, name):
-    remove_element_on_list(available_pokemon, name)
 
 
 def create_stats_area(champion_stats):
