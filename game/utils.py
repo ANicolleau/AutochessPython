@@ -2,6 +2,7 @@ class Icons:
     BACK = "\\img\\arrow_back.png"
     FORWARD = "\\img\\arrow_forward.png"
     REFRESH = "\\img\\refresh.png"
+    DELETE = "\\img\\delete.png"
 
 
 class Height:

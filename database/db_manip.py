@@ -37,8 +37,6 @@ def create_champion_board_collection():
     all_champions = get_db_champions()
     player_shop = random.sample(all_champions, 5)
     ia_shop = random.sample(all_champions, 5)
-    print('player_shop : %s' % player_shop)
-    print('ia_shop : %s' % ia_shop)
     return player_shop, ia_shop
 
 
@@ -99,7 +97,7 @@ def create_heroes():
             name = "IA"
             is_ia = True
             child = Board.get_all()[1]
-        hero = Heroes(id=i, name=name, health=15, money=0, level=1, ia=is_ia, child=child)
+        hero = Heroes(id=i, name=name, health=15, money=3, level=1, ia=is_ia, child=child)
         session.add(hero)
     session.commit()
     print("HEROES CREATED")

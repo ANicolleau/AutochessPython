@@ -1,20 +1,26 @@
-import os
-import random
-import pygame
+import pygame.font
+import time
+
 import pygame.font
 
-from pygame.locals import *
-from database.db_manip import *
-from game.colors import Colors
-from game.utils import Icons, Height, Width, BoardPos
 from game.game_manip import *
 from game.objects.Game import Game
-
+from game.objects.IAChampions import IAChampions
+from game.objects.combat import Combat
+from game.utils import BoardPos
+import sys
 bg = [255, 255, 255]
-path = os.path.dirname(os.path.dirname(__file__))
+
+if getattr(sys, 'frozen', False):
+    # frozen
+    path = os.path.dirname(sys.executable)
+else:
+    # unfrozen
+    path = os.path.dirname(os.path.dirname(__file__))
+# path = os.path.dirname(os.path.dirname(__file__))
 pygame.init()
 pygame.font.init()
-font = pygame.font.SysFont("Grobold", 20)
+font = pygame.font.SysFont("Boo", 20)
 game_display = pygame.display.set_mode((Width.display_width, Height.display_height), RESIZABLE)
 game_display.fill(Colors.BEIGE)
 
@@ -88,7 +94,7 @@ def game_intro():
             if event.type == pygame.QUIT:
                 drop_database()
                 pygame.quit()
-                quit()
+                sys.exit()
 
         game_display.fill(Colors.BEIGE)
         large_text = pygame.font.Font('freesansbold.ttf', 115)
@@ -130,7 +136,7 @@ def game_menu():
             if event.type == pygame.QUIT:
                 drop_database()
                 pygame.quit()
-                quit()
+                sys.exit()
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 pos = pygame.mouse.get_pos()
                 if rect_new_game.collidepoint(pos):
@@ -152,7 +158,9 @@ def game_menu():
 
 def in_game():
     possible_pos_x = BoardPos.possible_pos_x
+    number_turn = 1
     list_pos_rect = []
+    board_rectangles = []
     game_display.fill(Colors.BEIGE)
     game_continue = True
     init_party()
@@ -160,7 +168,7 @@ def in_game():
     clock = pygame.time.Clock()
 
     rect_return = pygame.draw.rect(game_display, Colors.RED,
-                                   ((Width.display_width / 1.2), (Height.display_height / 12), 100, 50))
+                                   ((Width.display_width / 1.1), (Height.display_height / 50), 100, 50))
     create_button("Retour", rect_return, game_display)
 
     game = Game()
@@ -169,17 +177,57 @@ def in_game():
     champ_pos_x = Width.board_purchase_width + 27
     draw_player_shop_board()
     refresh_button = draw_refresh_button(15, 583, 100, Height.display_height)
+    end_turn_button = draw_button(1300, 625, 100, Height.display_height, text="Terminer tour")
     button_list = create_store_champ_view(game.player_shop, champ_pos_x, Height.board_purchase_height)
     change_page_back()
     group_rect(button_list, list_pos_rect)
+    large_text = pygame.font.Font('freesansbold.ttf', 40)
     while game_continue:
+        game_display.blit(render("Phase d'achat et de selection", large_text),
+                          ((Width.display_width / 3.8), (Height.display_height / 6)))
+        health_player_rect = pygame.draw.rect(game_display, Colors.RED,
+                                              ((Width.display_width / 1.05), (Height.display_height / 1.2), 100, 50))
+        money_player_rect = pygame.draw.rect(game_display, Colors.RED,
+                                             ((Width.display_width / 1.05), (Height.display_height / 1.35), 100, 50))
+        turn_number_rect = pygame.draw.rect(game_display, Colors.RED,
+                                            ((Width.display_width / 50), (Height.display_height / 50), 100, 50))
+        create_button("HP : %s" % game.get_players_health(), health_player_rect, game_display)
+        create_button("OR : %s" % game.get_players_money(), money_player_rect, game_display)
+        create_button("TOUR : %s" % number_turn, turn_number_rect, game_display)
         pygame.display.flip()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 drop_board()
                 drop_database()
                 pygame.quit()
-                quit()
+                sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_1:
+                    if len(game.player_board.champions) >= 1 and len(game.player_champion_battle) < 3:
+                        print('Poeutte')
+                        if game.player_board.champions[0] not in game.player_champion_battle:
+                            game.select_champion(game.player_board.champions[0])
+                            print('game.player_board.champions[1] : %s' % game.player_board.champions[0])
+                if event.key == pygame.K_2:
+                    if len(game.player_board.champions) >= 2 and len(game.player_champion_battle) < 3:
+                        if game.player_board.champions[1] not in game.player_champion_battle:
+                            game.select_champion(game.player_board.champions[1])
+                            print('game.player_board.champions[2] : %s' % game.player_board.champions[1])
+                if event.key == pygame.K_3:
+                    if len(game.player_board.champions) >= 3 and len(game.player_champion_battle) < 3:
+                        if game.player_board.champions[2] not in game.player_champion_battle:
+                            game.select_champion(game.player_board.champions[2])
+                            print('game.player_board.champions[3] : %s' % game.player_board.champions[2])
+                if event.key == pygame.K_4:
+                    if len(game.player_board.champions) >= 4 and len(game.player_champion_battle) < 3:
+                        if game.player_board.champions[3] not in game.player_champion_battle:
+                            game.select_champion(game.player_board.champions[3])
+                            print('game.player_board.champions[4] : %s' % game.player_board.champions[3])
+                if event.key == pygame.K_5:
+                    if len(game.player_board.champions) >= 5 and len(game.player_champion_battle) < 3:
+                        if game.player_board.champions[4] not in game.player_champion_battle:
+                            game.select_champion(game.player_board.champions[4])
+                            print('game.player_board.champions[5] : %s' % game.player_board.champions[4])
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 pos = pygame.mouse.get_pos()
                 if rect_return.collidepoint(pos):
@@ -189,54 +237,185 @@ def in_game():
                     champ_pos_x = Width.board_purchase_width + 27
                     button_list = refresh_shop(button_list, game, champ_pos_x,
                                                Height.board_purchase_height)
+                champ_pos_x = Width.board_purchase_width + 27
+                if end_turn_button.collidepoint(pos):
+                    battle(number_turn, game)
+                    number_turn += 1
+                    game.end_turn(number_turn)
+                    champ_pos_x = Width.board_purchase_width + 27
+                    button_list = refresh_shop(button_list, game, champ_pos_x,
+                                               Height.board_purchase_height)
+                    champ_pos_x = Width.board_purchase_width + 27
+                    continue
+                sprites = []
                 for champion_id, list_of_rect in button_list.items():
                     for rect in list_of_rect:
+                        for board_rect in board_rectangles:
+                            if board_rect.collidepoint(pos):
+                                game.add_champ_by_id_to_available_champions(champion_id,
+                                                                            game.player_board.champions)
+                                counter = 0
+                                if list_pos_rect and sprites:
+                                    for sprite_id, sprite in sprites.items():
+                                        if counter <= len(game.player_board.champions):
+                                            game_display.blit(sprite, (list_pos_rect[counter].x, 450))
+                                            counter += 1
+                                pos = (0, 0)
                         if rect.collidepoint(pos):
-                            if len(game.player_board.champions) >= 5:
+                            champion = game.get_champion_by_id_in_shop(champion_id)
+                            if len(
+                                    game.player_board.champions) >= 5 or not champion or champion.price > game.player.money:
                                 continue
-                            print('len(game.player_board.champions) : %s' % len(game.player_board.champions))
-                            game.add_champ_to_board(game.player_board, game.player_shop, champion_id)
-                            list_of_sprites, champ_pos_x = create_player_board_view(game.player_board.champions,
-                                                                                    champ_pos_x,
-                                                                                    Height.board_player_height)
-                            champion_sprite_dos = list_of_sprites.get(champion_id, '')
+                            game.add_champ_to_board(game.player_board, game.player, game.player_shop, champion_id)
+                            game.remove_champ_shop(game.player_board.champions, champion_id)
+                            sprites, champ_pos_x, board_rectangles = create_player_board_view(
+                                game.player_board.champions,
+                                champ_pos_x,
+                                Height.board_player_height)
                             game_display.blit(background, (rect.x, rect.y), rect)
                             counter = 0
-                            if list_pos_rect and list_of_sprites:
-                                for sprite_id, sprite in list_of_sprites.items():
-                                    print('len(game.player_board.champions) : %s' % len(game.player_board.champions))
+                            if list_pos_rect and sprites:
+                                for sprite_id, sprite in sprites.items():
                                     if counter <= len(game.player_board.champions):
-                                        print('HERE')
-                                        # pos_in_list = len(game.player_board.champions) - 1
-                                        # print('pos_in_list : %s'%pos_in_list)
-                                        # game_display.blit(sprite, (list_pos_rect[pos_in_list].x, 450))
                                         game_display.blit(sprite, (list_pos_rect[counter].x, 450))
                                         counter += 1
-
-                                    # list_pos_rect.pop(pos_in_list)
-                                # print('list_pos_rect[0].x : %s' % list_pos_rect[0].x)
-                                # print('champion_sprite_dos : %s' % champion_sprite_dos)
-                                # game_display.blit(champion_sprite_dos, (list_pos_rect[0].x, 450))
-                                # list_pos_rect.pop(0)
-
         pygame.display.update()
         clock.tick(15)
     game_menu()
 
 
+def draw_sprite(champions_in_battle, champions_sprites, sprites, X, Y, Z):
+    for champion in champions_in_battle:
+        sprite = pygame.sprite.Sprite()
+        sprite.image = pygame.image.load('%s%s' % (path, champion.img))
+        sprite.rect = sprite.image.get_rect()
+        sprite.rect.topleft = (X, Y)
+
+        champions_sprites.add(sprite)
+        sprites.append(sprite)
+        X += Z
+        Y += Z
+
+
+def draw_sprite_back(champions_in_battle, champions_sprites, sprites, X, Y, Z):
+    for champion in champions_in_battle:
+        sprite = pygame.sprite.Sprite()
+        sprite.image = pygame.image.load('%s%s' % (path, champion.img_dos))
+        sprite.rect = sprite.image.get_rect()
+        sprite.rect.topleft = (X, Y)
+
+        champions_sprites.add(sprite)
+        sprites.append(sprite)
+        X += Z
+        Y += Z
+
+
+def battle(turn, game):
+    # type: (int, Game) -> None
+    sprites = []
+    ia_champions_sprites = pygame.sprite.Group()
+    X, Y, Z = 900, 50, 40
+    player_X, player_Y, player_Z = 600, 150, 40
+    ia = IAChampions(game.available_champions)
+
+    ia_champions = ia.champions.get(turn, [])
+    player_champions = game.player_champion_battle
+
+    fight = Combat(ia_champions, player_champions)
+    fight_pair = fight.set_battle()
+    print('fight_pair : %s' % fight_pair)
+    draw_sprite(ia_champions, ia_champions_sprites, sprites, X, Y, Z)
+    draw_sprite_back(player_champions, ia_champions_sprites, sprites, player_X, player_Y,
+                     player_Z)
+    game_continue = True
+
+    while game_continue:
+        pygame.display.flip()
+        fight.battle()
+        show_health(ia_champions)
+        show_health_player(player_champions)
+        ia_dead_champion = game.check_champ_hp(ia_champions)
+        player_dead_champion = game.check_champ_hp(player_champions)
+        if ia_dead_champion == 3:
+            pygame.draw.rect(game_display, Colors.BEIGE, (500, 50, 700, 300))
+            remove_sprites(ia_champions_sprites)
+            game.clear_champ_battle()
+            fight.reset_health(player_champions)
+            game_continue = False
+        elif player_dead_champion == 3:
+            time.sleep(2)
+            pygame.draw.rect(game_display, Colors.BEIGE, (500, 50, 700, 300))
+            remove_sprites(ia_champions_sprites)
+            game.lost_life(ia_champions)
+            game.clear_champ_battle()
+            fight.reset_health(player_champions)
+            game_continue = False
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+        ia_champions_sprites.draw(game_display)
+        ia_champions_sprites.update()
+        time.sleep(2)
+
+
+def show_health(battle_champions):
+    rect_champion_1 = pygame.draw.rect(game_display, Colors.BEIGE, (970, 70, 20, 30))
+    rect_champion_2 = pygame.draw.rect(game_display, Colors.BEIGE, (1010, 110, 20, 30))
+    rect_champion_3 = pygame.draw.rect(game_display, Colors.BEIGE, (1050, 150, 20, 30))
+
+    if len(battle_champions) > 0:
+        champ_1_health = battle_champions[0].health if battle_champions[0].health >= 0 else 0
+        create_button("%s" % champ_1_health, rect_champion_1, game_display)
+        if len(battle_champions) > 1:
+            champ_2_health = battle_champions[1].health if battle_champions[1].health >= 0 else 0
+            create_button("%s" % champ_2_health, rect_champion_2, game_display)
+            if len(battle_champions) > 2:
+                champ_3_health = battle_champions[2].health if battle_champions[2].health >= 0 else 0
+                create_button("%s" % champ_3_health, rect_champion_3, game_display)
+
+
+def show_health_player(battle_champions):
+    rect_champion_1 = pygame.draw.rect(game_display, Colors.BEIGE, (580, 180, 20, 30))
+    rect_champion_2 = pygame.draw.rect(game_display, Colors.BEIGE, (620, 220, 20, 30))
+    rect_champion_3 = pygame.draw.rect(game_display, Colors.BEIGE, (660, 260, 20, 30))
+
+    if len(battle_champions) > 0:
+        champ_1_health = battle_champions[0].health if battle_champions[0].health >= 0 else 0
+        create_button("%s" % champ_1_health, rect_champion_1, game_display)
+        if len(battle_champions) > 1:
+            champ_2_health = battle_champions[1].health if battle_champions[1].health >= 0 else 0
+            create_button("%s" % champ_2_health, rect_champion_2, game_display)
+            if len(battle_champions) > 2:
+                champ_3_health = battle_champions[2].health if battle_champions[2].health >= 0 else 0
+                create_button("%s" % champ_3_health, rect_champion_3, game_display)
+
+
+def remove_sprites(ia_champions_sprites):
+    ia_champions_sprites.remove(sprite for sprite in ia_champions_sprites)
+    ia_champions_sprites.draw(game_display)
+    ia_champions_sprites.update()
+
+
 def create_stats_area(champion_stats):
     stats = []
+    print('champion_stats : %s'%champion_stats)
     health = "Points de vie : %s" % champion_stats.get("health", "")
     price = "Prix : %s" % champion_stats.get("price", "")
     rarity = "Rareté : %s" % champion_stats.get("rarity", "")
+    attack = "Attaque : %s" % champion_stats.get('attack', '')
     level = "Niveau : %s" % champion_stats.get("level", "")
     description = "Description : %s" % champion_stats.get("description", "")
+    nb = "Nombre en jeu : %s" % champion_stats.get('number_on_game', '')
 
     stats.append(health)
     stats.append(price)
     stats.append(rarity)
     stats.append(level)
     stats.append(description)
+    stats.append(attack)
+    stats.append(nb)
     return stats
 
 
@@ -255,7 +434,7 @@ def show_all_characters():
     temp_rect_champ_width = rect_champ_width
     temp_rect_champ_height = rect_champ_height
     for champion in all_champions:
-        rect_champ = pygame.draw.rect(game_display, Colors.RED,
+        rect_champ = pygame.draw.rect(game_display, Colors.BEIGE,
                                       (temp_rect_champ_width / 1.2, temp_rect_champ_height / 1.8, 100, 50))
         button_list[champion] = rect_champ
         create_button(champion, rect_champ, game_display)
@@ -277,7 +456,7 @@ def show_all_characters():
             if event.type == pygame.QUIT:
                 drop_database()
                 pygame.quit()
-                quit()
+                sys.exit()
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 pos = pygame.mouse.get_pos()
                 if rect_return.collidepoint(pos):
@@ -350,7 +529,7 @@ def show_stats_champions(champion_name, stats):
             if event.type == pygame.QUIT:
                 drop_database()
                 pygame.quit()
-                quit()
+                sys.exit()
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 pos = pygame.mouse.get_pos()
                 if rect_return.collidepoint(pos):

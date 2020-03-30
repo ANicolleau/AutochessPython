@@ -1,23 +1,29 @@
 import os
-import random
+import sys
 import pygame
 import pygame.font
 from pygame.locals import *
+
 from database.db_manip import *
-from game.colors import Colors
-from game.utils import Icons, Height, Width
-from game.objects.Game import Game
+from .colors import Colors
+from .objects.Game import Game
+from .utils import Icons, Height, Width
 
 pygame.font.init()
-path = os.path.dirname(os.path.dirname(__file__))
-font = pygame.font.SysFont("Grobold", 20)
+if getattr(sys, 'frozen', False):
+    # frozen
+    path = os.path.dirname(sys.executable)
+else:
+    # unfrozen
+    path = os.path.dirname(os.path.dirname(__file__))
+font = pygame.font.SysFont("Boo", 20)
 background = pygame.Surface((1400, 700))
 
 game_display = pygame.display.set_mode((Width.display_width, Height.display_height), RESIZABLE)
 
 
 def create_button(text, rectangle, screen):
-    new_game_text = font.render(text, False, (0, 0, 0))
+    new_game_text = font.render(text, True, (0, 0, 0))
     new_game_rect = new_game_text.get_rect(center=rectangle.center)
     return screen.blit(new_game_text, new_game_rect)
 
@@ -37,6 +43,7 @@ def add_champion_in_game(pokemons):
     print(available_pokemons)
     return available_pokemons
 
+
 #
 # def remove_element_on_list(list_of_char, pokemon):
 #     list_of_char.remove(pokemon)
@@ -52,7 +59,6 @@ def create_store_champ_view(player_shop, pos_x, pos_y):
     for champ in player_shop:
         board_champ = pygame.draw.rect(game_display, Colors.WHITE, (
             pos_x, pos_y, 200, Height.display_height))
-        print('board_champ : %s' % board_champ)
         if champ not in button_list:
             button_list[champ.id] = []
         button_list[champ.id].append(board_champ)
@@ -65,16 +71,18 @@ def create_store_champ_view(player_shop, pos_x, pos_y):
 
 
 def create_player_board_view(player_shop, pos_x, pos_y):
-    list_of_sprites = {}
+    sprites = {}
+    game_rectangles = []
     for champ in player_shop:
         board_champ = pygame.draw.rect(game_display, Colors.WHITE, (
             pos_x, pos_y, 200, 146))
+        game_rectangles.append(board_champ)
         champion_sprite_dos = pygame.image.load('%s%s' % (path, champ.img_dos))
         champion_sprite_dos = pygame.transform.rotozoom(champion_sprite_dos, 0, 2)
-        list_of_sprites[champ.id] = champion_sprite_dos
+        sprites[champ.id] = champion_sprite_dos
         create_button("", board_champ, game_display)
         pos_x += 227
-    return list_of_sprites, pos_x
+    return sprites, pos_x, game_rectangles
 
 
 def change_page_back():
@@ -87,7 +95,7 @@ def draw_player_shop_board():
     board_player = pygame.draw.rect(game_display, Colors.BLACK, (
         Width.board_player_width, Height.board_player_height, (Width.display_width / 1.2), Height.display_height))
 
-    board_purchase = pygame.draw.rect(game_display, Colors.RED, (
+    board_purchase = pygame.draw.rect(game_display, Colors.BEIGE, (
         Width.board_purchase_width, Height.board_purchase_height, (Width.display_width / 1.2), Height.display_height))
     create_button("", board_purchase, game_display)
     create_button("", board_player, game_display)
@@ -119,24 +127,22 @@ def draw_refresh_button(pos_x, pos_y, width, height):
     return refresh_button
 
 
-# def refresh_shop(button_list, available_pokemon, pos_x, pos_y):
-#     for name, list_of_rect in button_list.items():
-#         for rect in list_of_rect:
-#             game_display.blit(background, (rect.x, rect.y), rect)
-#     available_to_buy = refill_shop(available_pokemon)
-#     # draw_player_shop_board()
-#     button_list = create_store_champ_view(available_to_buy, pos_x, pos_y)
-#     return button_list, available_to_buy
+def draw_button(pos_x, pos_y, width, height, icon="", text=""):
+    refresh_button = pygame.draw.rect(game_display, Colors.BEIGE, (
+        pos_x, pos_y, width, height))
+    create_button(text, refresh_button, game_display)
+    if icon:
+        refresh = pygame.image.load('%s%s' % (path, icon))
+        refresh = pygame.transform.rotozoom(refresh, 0, 2)
+        game_display.blit(refresh, (pos_x, pos_y))
+    return refresh_button
 
 
 def refresh_shop(button_list, game, pos_x, pos_y):
     for name, list_of_rect in button_list.items():
         for rect in list_of_rect:
             game_display.blit(background, (rect.x, rect.y), rect)
-    print(' 1 game.player_shop : %s'%game.player_shop)
     game.refresh_player_shop()
-    print(' 2 game.player_shop : %s'%game.player_shop)
-    # draw_player_shop_board()
     button_list = create_store_champ_view(game.player_shop, pos_x, pos_y)
     return button_list
 

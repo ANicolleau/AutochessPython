@@ -1,8 +1,9 @@
 import json
 
 from sqlalchemy import Integer, Column, String, ForeignKey
-from ..constants import DB_CONNECTION_STRING, JSON_CHAMPIONS_PATH
+
 from . import *
+from ..constants import DB_CONNECTION_STRING, JSON_CHAMPIONS_PATH
 
 engine = create_engine(DB_CONNECTION_STRING, echo=True)
 
@@ -17,8 +18,10 @@ class Champion(Base):
     board_id = Column(Integer, ForeignKey('board.id'))
     name = Column(String(255))
     health = Column(Integer)
+    attack = Column(Integer)
     price = Column(Integer)
     description = Column(String(255))
+    type = Column(String(255))
     rarity = Column(Integer)
     level = Column(Integer)
     img = Column(String(255))
@@ -26,8 +29,9 @@ class Champion(Base):
     number_on_game = Column(Integer)
 
     def __rep__(self):
-        return "<Champion(name='%s', health='%s', price='%s', description='%s', rarity='%s', level='%s', img='%s', img_dos='%s', number_on_game='%s')>" % (
-            self.name, self.health, self.price, self.description, self.rarity, self.level, self.img, self.img_dos,
+        return "<Champion(name='%s', health='%s', attack='%s' price='%s', description='%s', type='%s', rarity='%s', level='%s', img='%s', img_dos='%s', number_on_game='%s')>" % (
+            self.name, self.health, self.attack, self.price, self.description, self.type, self.rarity, self.level,
+            self.img, self.img_dos,
             self.number_on_game)
 
     @staticmethod
@@ -46,7 +50,8 @@ class Champion(Base):
 Base.metadata.create_all(engine)
 for champion in champions_data:
     print('champion : %s' % champion)
-    champ = Champion(id=champion['id'], name=champion['name'], health=champion['health'], price=champion['price'],
+    champ = Champion(id=champion['id'], name=champion['name'], health=champion['health'], attack=champion['attack'],
+                     price=champion['price'], type=champion['type'],
                      description=champion['description'], rarity=champion['rarity'], level=champion['level'],
                      img=champion['img'], img_dos=champion['img_dos'], number_on_game=champion['number_on_game'])
     session.add(champ)
